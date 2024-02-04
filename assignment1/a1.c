@@ -6,5 +6,6 @@ int main(int argc, char *argv[])
     printf("NAM ANH");
     printf("It Worked");
     printf("Tommy");
+    printf("MERGE PLZ");
     return 0;
 }
