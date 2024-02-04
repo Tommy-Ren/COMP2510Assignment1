@@ -1,5 +1,23 @@
 #include <stdio.h>
 
+int anagramTesting(char *str1, char *str2) {
+    int len1 = strlen(str1);
+    int len2 = strlen(str2);
+
+    if (len1 == len2) {
+        for (int i = 0; i < len1; i++) {
+            for (int j = 0; j < len2; j++) {
+                if (str1[i] == str2[j]) {
+                    str2[j] = "";
+                }
+                break;
+            }
+        }
+    } else {
+        return 0;
+    }
+}
+
 int main(int argc, char *argv[])
 {
     // Check argument
