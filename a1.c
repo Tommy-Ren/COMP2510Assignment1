@@ -36,6 +36,8 @@ int anagramTesting(char *str1, char *str2) {
             for (int j = 0; j < len2; j++) {  
                 if (str1[i] == str2[j]) {
                     countsamechar++;
+                    str1[i] = *"\0";
+                    str2[j] = *"\0";
                     break;
                 }
             }
