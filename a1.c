@@ -1,26 +1,27 @@
-// A01345407
-// A01329182
-// A01377048
-// A01339333
+// A01345407 A01377048 A01329182 A01339333
 #include <stdio.h>
 #include <stdlib.h>
 
 // Function to get length of the string
-int strlength(char *str) {
+int strlength(char *str)
+{
     int length = 0;
-    while (str[length] != '\0') {
+    while (str[length] != '\0')
+    {
         length++;
     }
     return length;
 }
 
 // Function to remove non-char out of the string
-char removenonchar(char *str) {
+char removenonchar(char *str)
+{
     int length = strlength(str);
     int j = 0;
-    for (int i = 0; i < length; i++) {
-        if ((str[i] >= 'a' && str[i] <= 'z') 
-         || (str[i] >= 'A' && str[i] <= 'Z')) {
+    for (int i = 0; i < length; i++)
+    {
+        if ((str[i] >= 'a' && str[i] <= 'z') || (str[i] >= 'A' && str[i] <= 'Z'))
+        {
             str[j++] = str[i];
         }
     }
@@ -28,17 +29,22 @@ char removenonchar(char *str) {
     return *str;
 }
 // Function to test anagram of 2 strings
-int anagramTesting(char *str1, char *str2) {
+int anagramTesting(char *str1, char *str2)
+{
     *str1 = removenonchar(str1);
     *str2 = removenonchar(str2);
     int len1 = strlength(str1);
     int len2 = strlength(str2);
     int countsamechar = 0;
-    
-    if (len1 == len2) {
-        for (int i = 0; i < len1; i++) {   
-            for (int j = 0; j < len2; j++) {  
-                if (str1[i] == str2[j]) {
+
+    if (len1 == len2)
+    {
+        for (int i = 0; i < len1; i++)
+        {
+            for (int j = 0; j < len2; j++)
+            {
+                if (str1[i] == str2[j])
+                {
                     countsamechar++;
                     str1[i] = *"\0";
                     str2[j] = *"\0";
@@ -47,19 +53,26 @@ int anagramTesting(char *str1, char *str2) {
             }
         }
 
-        if (countsamechar == len1) {
+        if (countsamechar == len1)
+        {
             return 1;
-        } else {
+        }
+        else
+        {
             return 0;
         }
-    } else {
+    }
+    else
+    {
         return 0;
     }
 }
 
-int main(int argc, char *argv[]) {
+int main(int argc, char *argv[])
+{
     // Check argument
-    if (argc != 3) {
+    if (argc != 3)
+    {
         // Quit
         return 1;
     }
@@ -67,35 +80,55 @@ int main(int argc, char *argv[]) {
     // Initilize variables
     char *inputFileName = argv[1];
     char *outputFileName = argv[2];
-    char line1[1000];
-    char line2[1000];
+    int lengthStr1 = 2;
+    int lengthStr2 = 2;
 
     // Read the input file
     FILE *inputfile = fopen(inputFileName, "r");
-    if (inputfile == NULL) {
+    if (inputfile == NULL)
+    {
         // Quit
         return 1;
     }
 
+    // Finds the length of each line to create an array for each string
+    while (fgetc(inputfile) != 10)
+    {
+        lengthStr1++;
+    }
+
+    while (fgetc(inputfile) != EOF)
+    {
+        lengthStr2++;
+    }
+    fclose(inputfile);
+
+    inputfile = fopen(inputFileName, "r");
+    char *line1 = malloc(lengthStr1);
+    char *line2 = malloc(lengthStr2);
+
     // Read the first line and second line for 2 strings
-    fgets(line1, 1000, inputfile);
-    fgets(line2, 1000, inputfile);
+    fgets(line1, lengthStr1, inputfile);
+    fgets(line2, lengthStr2, inputfile);
 
     fclose(inputfile);
 
     // Call the anagramTesting function
     int result = anagramTesting(line1, line2);
-    
+
     // Write the output file
     FILE *outputfile = fopen(outputFileName, "w");
-    if (outputfile == NULL) {
+    if (outputfile == NULL)
+    {
         // Quit
         return 1;
     }
-
-    if (result == 1) {
+    if (result == 1)
+    {
         fprintf(outputfile, "1! anagram");
-    } else {
+    }
+    else
+    {
         fprintf(outputfile, "0! not anagram");
     }
 
