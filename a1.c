@@ -112,6 +112,8 @@ int main(int argc, char *argv[])
     fgets(line2, lengthStr2, inputfile);
 
     fclose(inputfile);
+    free(line1);
+    free(line2);
 
     // Call the anagramTesting function
     int result = anagramTesting(line1, line2);
